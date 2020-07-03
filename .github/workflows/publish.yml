@@ -23,7 +23,13 @@ jobs:
           tar czf $role-$version.tar.gz -C $role .
           git add $role-$version.tar.gz
         done
-        ls -la
+        echo git status ...
         git status
+        echo git config ...
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        echo git add ...
+        git add *.tar.gz
+        echo git commit ...
         git commit -m "update"
         git push
