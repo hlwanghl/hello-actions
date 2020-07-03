@@ -24,3 +24,6 @@ jobs:
         done
         ls -la
         git status
+        git add *.tar.gz
+        git commit -m "update"
+        git push
