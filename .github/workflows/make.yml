@@ -8,13 +8,13 @@ on:
 jobs:
   make:
     # Job name is Greeting
-    name: make
+    name: Make
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v2
       id: checkout
-    - name: make
-      run: make.sh
+    - name: Make
+      run: ./make.sh
       id: make
