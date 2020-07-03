@@ -19,7 +19,6 @@ build() {
   done
 
   # switch to gh-pages branch
-  git status
   git fetch
   git checkout -t origin/gh-pages
 
@@ -34,7 +33,6 @@ build() {
 }
 
 deploy() {
-  build
   git config --global user.name "github-actions[bot]"
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git add *.tar.gz
