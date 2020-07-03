@@ -23,6 +23,8 @@ jobs:
           tar czf $role-$version.tar.gz -C $role .
           git add $role-$version.tar.gz
         done
+        echo git checkout gh-pages ...
+        git checkout -t origin/gh-pages
         echo git status ...
         git status
         echo git config ...
@@ -32,4 +34,4 @@ jobs:
         git add *.tar.gz
         echo git commit ...
         git commit -m "update"
-        git push origin HEAD:gh-pages
+        git push
