@@ -21,9 +21,9 @@ jobs:
           echo processing $role ...
           version="$(awk '$1=="version:" {print $2}' $role/meta.yml)"
           tar czf $role-$version.tar.gz -C $role .
+          git add $role-$version.tar.gz
         done
         ls -la
         git status
-        git add *.tar.gz
         git commit -m "update"
         git push
