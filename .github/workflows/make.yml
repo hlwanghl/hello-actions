@@ -1,0 +1,20 @@
+name: make
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  make:
+    # Job name is Greeting
+    name: make
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      id: checkout
+    - name: make
+      run: make.sh
+      id: make
