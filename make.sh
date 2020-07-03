@@ -13,7 +13,7 @@ build() {
 
   # build packages
   local role; for role in $roles; do
-    echo processing $role ...
+    echo "processing $role ..."
     local version="$(awk '$1=="version:" {print $2}' $role/meta.yml)"
     tar czf $role-${version:?missing}.tar.gz -C $role .
   done
@@ -28,15 +28,18 @@ build() {
 
   # ensure new role versions are provided
   local role; for role in $(findRoles); do
-    egrep -q "^version: [0-9]+\.[0-9]+\.[0-9]+" $role/meta/main.yml
+    egrep -q "^version: [0-9]+\.[0-9]+\.[0-9]+" $role/meta/main.yml || fatal 1 "role version is required: [$role]."
   done
 }
 
 deploy() {
+  echo "preparing git author info ..."
   git config --global user.name "github-actions[bot]"
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+  echo "preparing git commit ..."
   git add *.tar.gz
   git diff --quiet || git commit -m "update"
+  echo "pushing changes ..."
   git push
 }
 
@@ -47,6 +50,7 @@ findRoles() {
 main() {
   build
   if [ "$GITHUB_EVENT_NAME" == "push" ];then
+    echo "publishing new role packages ..."
     deploy
   fi
 }
