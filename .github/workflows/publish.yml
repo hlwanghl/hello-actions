@@ -22,12 +22,5 @@ jobs:
           version="$(awk '$1=="version:" {print $2}' $role/meta.yml)"
           tar czf $role-$version.tar.gz -C $role .
         done
-    - name: Checkout pages branch
-      uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-      id: checkout-pages
-    - name: Build
-      run: |
         ls -la
         git status
