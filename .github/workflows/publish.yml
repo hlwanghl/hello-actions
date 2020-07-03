@@ -32,4 +32,4 @@ jobs:
         git add *.tar.gz
         echo git commit ...
         git commit -m "update"
-        git push
+        git push origin HEAD:gh-pages
