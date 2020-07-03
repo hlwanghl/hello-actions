@@ -9,7 +9,7 @@ fatal() {
 
 build() {
   # find all roles
-  readonly roles="$(findRoles)"
+  local roles="$(findRoles)"
 
   # build packages
   local role; for role in $roles; do
