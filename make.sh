@@ -36,7 +36,7 @@ deploy() {
   git config --global user.name "github-actions[bot]"
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git add *.tar.gz
-  git commit -m "update"
+  git diff --quiet || git commit -m "update"
   git push
 }
 
