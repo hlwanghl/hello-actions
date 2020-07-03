@@ -13,8 +13,8 @@ build() {
 
   # build packages
   local role; for role in $roles; do
-    echo "processing $role ..."
     local version="$(awk '$1=="version:" {print $2}' $role/meta.yml)"
+    echo "creating package for $role-$version ..."
     tar czf $role-${version:?missing}.tar.gz -C $role .
   done
 
