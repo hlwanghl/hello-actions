@@ -38,9 +38,8 @@ deploy() {
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
   echo "preparing git commit ..."
   git add *.tar.gz
-  git status
   git diff --staged --quiet || git commit -m "update"
-  echo "pushing changes ..."
+  echo "pushing changes if any ..."
   git push
 }
 
