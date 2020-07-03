@@ -19,8 +19,8 @@ build() {
   done
 
   # switch to gh-pages branch
+  git status
   git fetch
-  git branch -D gh-pages || true
   git checkout -t origin/gh-pages
 
   # ensure existing versions are unchanged
