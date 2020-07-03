@@ -39,7 +39,7 @@ deploy() {
   echo "preparing git commit ..."
   git add *.tar.gz
   git status
-  git diff --quiet || git commit -m "update"
+  git diff --staged --quiet || git commit -m "update"
   echo "pushing changes ..."
   git push
 }
@@ -49,7 +49,9 @@ findRoles() {
 }
 
 main() {
+  echo "building ..."
   build
+
   if [ "$GITHUB_EVENT_NAME" == "push" ];then
     echo "publishing new role packages ..."
     deploy
