@@ -69,7 +69,7 @@ findPublishedPackageNames() {
 
 findPendingPackageNames() {
   local role version; for role in $(findRoles); do
-    version="$(awk '$1=="role_version:" {print $2}' $role/meta.yml)"
+    version="$(awk '$1=="version:" {print $2}' $role/meta.yml)"
     echo $role-${version:?missing}.tar.gz
   done
 }
