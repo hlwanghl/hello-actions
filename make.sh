@@ -23,11 +23,19 @@ build() {
 }
 
 check() {
+  log "ensuring only one role is changed in one PR ..."
   local changedPackages; changedPackages="$(findChangedPackageNames)"
   local changedCount=$(echo $changedPackages | wc -w)
   if [ "$changedCount" -gt 1 ]; then
     fatal 1 "Only one package is allowed to update at a time, though found $changedCount changed packages: [${changedPackages// /, }]."
   fi
+
+  log "checking version is changed together ..."
+  local changedFiles; changedFiles="$(git diff --name-only | grep /)"
+  local changedDirs; changedDirs="$(echo $changedFiles | sed -r 's#^([^/]+)/.*$#\1#' | uniq)"
+  local changedDir; for changedDir in $changedDirs; do
+    git diff --word-diff-regex=version: $changedDir/meta/main.yml | grep -o version: || fatal 1 "role version should be updated together: $changedDir."
+  done
 }
 
 deploy() {
