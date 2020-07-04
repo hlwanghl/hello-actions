@@ -42,7 +42,7 @@ deploy() {
 
   log "preparing git commit ..."
   echo "roles:" > index.yml
-  findPendingPackageNames | sort -V | sed 's/^/- /g' >> index.yml
+  findPackages | sort -V | sed 's/^/- /g' >> index.yml
   git add *.tar.gz index.yml
   git diff --staged --quiet || git commit -m "update"
 
@@ -71,6 +71,10 @@ findPendingPackageNames() {
 
 findRoles() {
    find . -mindepth 1 -maxdepth 1 -type d ! -name ".*" -printf "%f\n"
+}
+
+findPackages() {
+   find . -mindepth 1 -maxdepth 1 -type d -name "*.tar.gz" -printf "%f\n"
 }
 
 fatal() {
