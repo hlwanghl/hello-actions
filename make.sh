@@ -74,7 +74,7 @@ findRoles() {
 }
 
 findPackages() {
-   find . -mindepth 1 -maxdepth 1 -type d -name "*.tar.gz" -printf "%f\n"
+   find . -mindepth 1 -maxdepth 1 -type f -name "*.tar.gz" -printf "%f\n"
 }
 
 fatal() {
