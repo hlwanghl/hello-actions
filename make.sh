@@ -29,17 +29,6 @@ check() {
   if [ "$changedCount" -gt 1 ]; then
     fatal 1 "Only one package is allowed to update at a time, though found $changedCount changed packages: [${changedPackages// /, }]."
   fi
-
-  log "checking version is updated accordingly ..."
-  local changedFiles; changedFiles="$(git diff --name-only | grep /)" || {
-    log "No dir changed."
-    return 0
-  }
-  local changedDirs; changedDirs="$(echo $changedFiles | sed -r 's#^([^/]+)/.*$#\1#' | uniq | xargs)"
-  local changedDir; for changedDir in $changedDirs; do
-    log "checking version field of the changed role: $changedDir."
-    git diff --word-diff-regex=version: $changedDir/meta/main.yml | grep -o version: || fatal 1 "role version should be updated together: $changedDir."
-  done
 }
 
 deploy() {
