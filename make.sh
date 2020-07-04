@@ -41,7 +41,9 @@ deploy() {
   git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
   log "preparing git commit ..."
-  git add *.tar.gz
+  echo "roles:" > index.yml
+  findPendingPackageNames | sort -V | sed 's/^/- /g' >> index.yml
+  git add *.tar.gz index.yml
   git diff --staged --quiet || git commit -m "update"
 
   log "pushing changes if any ..."
